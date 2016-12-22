@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+{% block content %}
+{% if user %}
+	<div class="login-area">
+		<div class="link-group">
+			<a class="login-link" href="/logout">{{user.username}}(logout)</a>
+		</div>
+		<div class="link-group">
+			<a class="login-link" href="/_edit{{wikipage.key.id()}}">edit</a>
+			|
+			<a class="login-link" href="{{wikipage.key.id()}}">view</a>
+		</div>
+		<h2 style="margin: 0px; padding 0px;">History</h2>
+	</div>
+{% else %}
+	<div class="login-area">
+		<div class="link-group">
+			<a class="login-link" href="/login">login</a>
+			|
+			<a class="login-link" href="/signup">signup</a>
+		</div>
+		<div class="link-group">
+			<a class="login-link" href="{{wikipage.key.id()}}">view</a>
+		</div>
+	<h2 style="margin: 0px; padding 0px;">History</h2>
+	</div>
+{% endif %}
+
+	<div class="post-content">
+	<table class="history-table">
+		{% for version in range(wikipage.content|length, 0, -1) %}
+			<tr>
+				<td class="date-cell">
+					{{ wikipage.date_modified[version - 1].strftime('%c') }}
+				</td>
+				<td class="content-cell">
+					{{ wikipage.content[version - 1] }}
+				</td>
+				<td class="link-cell">
+					<a class="view-link" href="{{wikipage.key.id()}}?v={{version}}">view</a>
+				</td>
+					<td class="link-cell">
+						<a class="login-link" href="/_edit{{wikipage.key.id()}}?v={{version}}">edit</a>
+					</td>
+			</tr>
+		{% endfor %}
+	</table>
+</div>
+
+{% endblock %}

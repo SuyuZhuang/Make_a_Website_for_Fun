@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% block content %}
+{% if user %}
+	<div class="login-area">
+		<div class="link-group">
+			<a class="login-link" href="/logout">{{user.name}}(logout)</a>
+		</div>
+		<div class="link-group">
+			<a class="login-link" href="/_edit{{wikipage.key.id()}}?v={{version}}">edit</a>
+			|
+			<a class="login-link" href="/_history{{wikipage.key.id()}}">history</a>
+		</div>
+	</div>
+{% else %}
+	<div class="login-area">
+		<div class="link-group">
+			<a class="login-link" href="/login">login</a>
+			|
+			<a class="login-link" href="/signup">signup</a>
+		</div>
+		<div class="link-group">
+			<a class="login-link" href="/_history{{wikipage.key.id()}}">history</a>
+		</div>
+	</div>
+{% endif %}
+
+
+	{{wikipage.render_content(version) | safe}}
+
+{% endblock %}

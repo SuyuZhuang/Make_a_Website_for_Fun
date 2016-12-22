@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="login-area">
+	<div class="link-group">
+			<a class="login-link" href="/logout">{{user.username}}(logout)</a>
+	</div>
+	{% if wikipage %}
+		<div class="link-group">
+			<a class="login-link" href="{{wikipage.key.id()}}?v={{version}}">view</a>
+			|
+			<a class="login-link" href="/_history{{wikipage.key.id()}}">history</a>
+		</div>
+	{% endif %}
+	<h2 style="margin: 0px; padding 0px;">Edit</h2>
+</div>
+
+
+	<form method="post" class="edit-form">
+		<div class="error">{{error}}</div>
+		<div id="container">
+			<textarea name="content">{% if wikipage %}{{wikipage.content[version-1]}}{% endif %}</textarea>
+		</div>
+		<br>
+		<input type="submit" value="save">
+	</form>
+{% endblock %}
