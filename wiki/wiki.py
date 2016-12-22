@@ -199,7 +199,7 @@ class Logout(Handler):
 		self.redirect('/') # 重定向到注册页
 
 
-
+# 注意这里的顺序也很重要，如果(PAGE_RE, WikiPage)放在/login等的前面，那么是无法跳转到登录页面的
 app = webapp2.WSGIApplication([
 	('/_edit'+PAGE_RE, EditPage), 
 	('/_history' + PAGE_RE, HistoryPage),
